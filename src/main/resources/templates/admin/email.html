@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>发送邮件</title>
+    <link rel="stylesheet" href="../../static/css/add.css" th:href="@{/css/add.css}">
+</head>
+<body>
+<br><br><br><br><br>
+<div class="container">
+    <h3>发送邮件</h3>
+    <form th:action="@{/admin/emailInput}" method="post" id="myForm">
+        <div class="row">
+            <div class="col-25">
+                <label for="email">接收邮箱:</label>
+                <input type="text" id="email" name="email"/><br/>
+
+                <label for="title">邮件标题:</label>
+                <input type="text" id="title" name="title"/><br><br>
+
+                <label for="content">邮件内容:</label>
+                <input type="text" id="content" name="content" style="height: 100px"/><br/>
+            </div>
+        </div>
+            <br>
+        <div class="row">
+            <input type="submit" onclick="return validateForm()" value="发送">
+            <a href="#" class="button" th:href="@{/admin}">返回</a>
+        </div>
+    </form>
+</div>
+</form>
+<script>
+    function validateForm() {
+        // 邮箱格式
+        var re = new RegExp("^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$", "i");
+        // 获取表单元素的值
+        var email = document.forms["myForm"]["email"].value;
+        var title = document.forms["myForm"]["title"].value;
+        var content = document.forms["myForm"]["content"].value;
+        // 检查名称是否为空
+        if (email == "") {
+            alert("邮箱地址不能为空!");
+            return false;
+        }
+        if (!re.test(email)){
+            alert("邮箱格式不正确!");
+        }
+        //检查类型是否为空
+        if (title == "") {
+            alert("邮箱标题不能为空!");
+            return false;
+        }
+        // 检查价格是否为空
+        if (content == "" ) {
+            alert("邮件内容不能为空!");
+            return false;
+        }
+        // 校验通过，允许提交表单
+        return true;
+    }
+</script>
+</body>
+</html>
