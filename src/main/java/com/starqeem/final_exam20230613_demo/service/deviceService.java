@@ -31,7 +31,7 @@ public class deviceService {
      */
     @Cacheable(value = "device:admin:List",key = "#pageNum") //添加缓存
     public PageInfo<device> getDeviceList(Integer pageNum) {
-        //调用分页助手，传入页码数和一页的数据条数
+        //调用分页助手，传入当前页码和一页的数据条数
         PageHelper.startPage(pageNum,PAGE_SIZE);
         //查询数据库
         List<device> deviceLikeList = deviceMapper.getDeviceList();
