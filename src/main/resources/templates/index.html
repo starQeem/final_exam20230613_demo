@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
 </head>
 <body>
 <a href="#" th:href="@{/logout}">注销</a><br><br><br>
-普通电影:<br>
+<!-- 普通电影,不需要权限 -->
+<p>普通电影:</p>
 <a href="#" th:href="@{/film/common/1}">熊出没1</a>
-<a href="#" th:href="@{/film/common/2}">熊出没2</a><br>
-vip电影:<br>
-<a href="#" th:href="@{/film/vip/1}">喜羊羊与灰太狼1</a>
-<a href="#" th:href="@{/film/vip/2}">喜羊羊与灰太狼2</a><br>
-管理员:<br>
-<a href="#" th:href="@{/admin}">后台管理</a>
+<a href="#" th:href="@{/film/common/2}">熊出没2</a>
+<!-- vip电影,vip权限和管理员权限可以浏览 -->
+<p sec:authorize="hasRole('vip') or hasRole('admin')">VIP电影:</p>
+<a href="#" th:href="@{/film/vip/1}" sec:authorize="hasRole('vip') or hasRole('admin')">喜羊羊与灰太狼1</a>
+<a href="#" th:href="@{/film/vip/2}" sec:authorize="hasRole('vip') or hasRole('admin')">喜羊羊与灰太狼2</a>
+<!-- 后台管理,只有管理员权限可以浏览 -->
+<p sec:authorize="hasRole('admin')">管理员:</p>
+<a href="#" th:href="@{/admin}" sec:authorize="hasRole('admin')">后台管理</a>
+
+
 
 </body>
 </html>
