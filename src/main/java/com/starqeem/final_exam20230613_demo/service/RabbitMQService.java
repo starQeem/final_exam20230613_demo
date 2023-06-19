@@ -16,6 +16,6 @@ public class RabbitMQService {
     @RabbitHandler
     @RabbitListener(queuesToDeclare = @Queue("email"))
     public void receiveMessage(String message) {
-        System.out.println("message = " + message);
+        System.out.println("message = " + message); //邮件发送出去后接收消息在控制台中输出
     }
 }

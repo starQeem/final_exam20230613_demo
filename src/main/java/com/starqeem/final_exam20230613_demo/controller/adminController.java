@@ -36,6 +36,10 @@ public class adminController{
     * */
     @GetMapping(value = {"/{pageNum}",""})
     public String index(Model model, @PathVariable(value = "pageNum",required = false)Integer pageNum,String name){
+        if (pageNum == null){//判断页码数是否为空
+            //为空，赋值为1（第一页）
+            pageNum = PAGE_NUM;
+        }
         PageInfo<device> deviceList = deviceService.getDeviceList(name,pageNum,PAGE_SIZE);
         model.addAttribute("message",MESSAGE);
         model.addAttribute("page",deviceList);

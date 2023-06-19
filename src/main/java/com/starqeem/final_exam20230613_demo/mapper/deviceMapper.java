@@ -13,7 +13,7 @@ import java.util.List;
 public interface deviceMapper {
 //    //根据id查询
     @Select("select * from device.device where id = #{id}")
-    public device getDeviceById(@Param("id") int id);
+    device getDeviceById(@Param("id") int id);
 //    //查询所有
 //    @Select("select * from device.device")
 //    public List<device> getDeviceList();

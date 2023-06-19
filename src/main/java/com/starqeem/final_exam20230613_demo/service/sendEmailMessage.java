@@ -25,7 +25,7 @@ public class sendEmailMessage {
     @Async //异步执行
     public void emailInput1(String title,String email,String content) throws MessagingException {
         emailService.sendVerificationCode(title,email,content);
-        //发送消息
+        //发送消息(队列名称:email)
         rabbitTemplate.convertAndSend("email","已将邮件发送至邮箱: " + email );
     }
     /*

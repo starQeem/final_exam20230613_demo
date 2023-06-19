@@ -20,9 +20,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService(){
         InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
-        userDetailsManager.createUser(User.withUsername("admin").password("{noop}admin").roles("admin").build());
-        userDetailsManager.createUser(User.withUsername("zhangsan").password("{noop}123456").roles("common").build());
-        userDetailsManager.createUser(User.withUsername("lisi").password("{noop}123456").roles("vip").build());
+        userDetailsManager.createUser(User.withUsername("admin").password("{noop}admin").roles("admin").build());//管理员用户
+        userDetailsManager.createUser(User.withUsername("zhangsan").password("{noop}123456").roles("common").build());//普通用户
+        userDetailsManager.createUser(User.withUsername("lisi").password("{noop}123456").roles("vip").build());//VIP用户
         return userDetailsManager;
     }
     //自定义AuthenticationManager 推荐
