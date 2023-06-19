@@ -2,12 +2,15 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>管理员首页</title>
+    <title>管理员搜索</title>
     <link rel="stylesheet" href="../../static/css/index.css" th:href="@{/css/index.css}">
 </head>
 <body>
 <a href="#" th:href="@{/logout}" class="logout-btn">
     <span class="logout-icon"></span>注销
+</a>
+<a href="#" th:href="@{/admin}" class="logout-btn">
+    <span class="logout-icon"></span>返回
 </a>
 <a href="#" th:href="@{/admin/email}" class="logout-btn">
     <span class="logout-icon">发送邮件</span>
@@ -32,23 +35,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="page : ${page.list}">
-        <td th:text="${page.id}"></td>
-        <td th:text="${page.name}"></td>
-        <td th:text="${page.label}"></td>
-        <td th:text="${page.price}"></td>
+    <tr th:each="device : ${deviceList}">
+        <td th:text="${device.id}"></td>
+        <td th:text="${device.name}"></td>
+        <td th:text="${device.label}"></td>
+        <td th:text="${device.price}"></td>
         <td>
-            <a href="#" class="button" th:href="@{/admin/update/{id}(id=${page.id})}">修改</a>
-            <a href="#" class="button" th:href="@{/admin/delete/{id}(id=${page.id})}">删除</a>
+            <a href="#" class="button" th:href="@{/admin/update/{id}(id=${device.id})}">修改</a>
+            <a href="#" class="button" th:href="@{/admin/delete/{id}(id=${device.id})}">删除</a>
         </td>
     </tr>
     </tbody>
 </table>
-<div class="container">
-    <a class="button" href="#" th:href="@{/admin/{pageNum}(pageNum=${page.prePage})}"
-       th:if="${page.hasPreviousPage}">上一页</a>
-    <a class="button" href="#" th:href="@{/admin/{pageNum}(pageNum=${page.nextPage})}"
-       th:if="${page.hasNextPage}">下一页</a>
-</div>
 </body>
 </html>

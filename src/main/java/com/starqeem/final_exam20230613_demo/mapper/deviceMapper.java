@@ -11,15 +11,15 @@ import java.util.List;
  */
 @Mapper
 public interface deviceMapper {
-//    //根据id查询
+    //根据id查询
     @Select("select * from device.device where id = #{id}")
     device getDeviceById(@Param("id") int id);
-//    //查询所有
-//    @Select("select * from device.device")
-//    public List<device> getDeviceList();
+    //查询所有
+    @Select("select * from device.device")
+    public List<device> getDeviceList();
     //模糊查询
     @Select("select * from device.device where name LIKE CONCAT('%', #{name}, '%')")
-    public List<device> getDeviceLikeList(@Param("name")String name);
+    public List<device> getSearchList(@Param("name")String name);
     //新增设备
     @Insert("insert into device.device (name, label, price) VALUES (#{name}, #{label}, #{price})")
     int insertDevice(@Param("name") String name,@Param("label") String label,@Param("price") Integer price);

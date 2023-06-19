@@ -15,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 
+import java.util.List;
+
 import static com.starqeem.final_exam20230613_demo.constant.constant.*;
 
 /**
@@ -35,15 +37,24 @@ public class adminController{
     * 分页查询
     * */
     @GetMapping(value = {"/{pageNum}",""})
-    public String index(Model model, @PathVariable(value = "pageNum",required = false)Integer pageNum,String name){
+    public String index(Model model, @PathVariable(value = "pageNum",required = false)Integer pageNum){
         if (pageNum == null){//判断页码数是否为空
             //为空，赋值为1（第一页）
             pageNum = PAGE_NUM;
         }
-        PageInfo<device> deviceList = deviceService.getDeviceList(name,pageNum,PAGE_SIZE);
+        PageInfo<device> deviceList = deviceService.getDeviceList(pageNum);
         model.addAttribute("message",MESSAGE);
         model.addAttribute("page",deviceList);
         return "admin/index";
+    }
+    /*
+    * 搜索
+    * */
+    @GetMapping("/search")
+    public String search(Model model,String name){
+        List<device> deviceList = deviceService.getSearchList(name);
+        model.addAttribute("deviceList",deviceList);
+        return "admin/search";
     }
     /*
     * 跳转到新增设备页面

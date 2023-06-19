@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static com.starqeem.final_exam20230613_demo.constant.constant.PAGE_SIZE;
 
-import static com.starqeem.final_exam20230613_demo.constant.constant.*;
 
 /**
  * @Date: 2023/6/13 21:00
@@ -26,27 +26,28 @@ public class deviceService {
     /**
      * 获取设备列表
      *
-     * @param name     名字
      * @param pageNum  页面num
-     * @param pageSize 页面大小
      * @return {@link PageInfo}<{@link device}>
      */
     @Cacheable(value = "device:admin:List",key = "#pageNum") //添加缓存
-    public PageInfo<device> getDeviceList(String name,Integer pageNum,Integer pageSize) {
-        if (name == null){  //判断搜索框输入的设备名称是否为空
-            //为空，将name设置为空字符串，这样在进行模糊查询的时候就能查询出所有列表信息
-            name = "";
-        }else {
-            //不为空，则说明在使用搜索功能，此时将分页的一页的数据条数设置为一个较大的值，这样就只能查出一页的数据了，相当于不进行分页
-            pageSize = SEARCH_PAGE_SIZE;
-        }
+    public PageInfo<device> getDeviceList(Integer pageNum) {
         //调用分页助手，传入页码数和一页的数据条数
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum,PAGE_SIZE);
         //查询数据库
-        List<device> deviceLikeList = deviceMapper.getDeviceLikeList(name);
+        List<device> deviceLikeList = deviceMapper.getDeviceList();
         PageInfo<device> pageInfo = new PageInfo<>(deviceLikeList);
         //返回分页信息
         return pageInfo;
+    }
+
+    /**
+     * 搜索列表
+     *
+     * @param name 名字
+     * @return {@link List}<{@link device}>
+     */
+    public List<device> getSearchList(String name) {
+        return deviceMapper.getSearchList(name);
     }
 
     /**
@@ -86,4 +87,6 @@ public class deviceService {
     public int deleteDeviceById(Integer id) {
         return deviceMapper.deleteDeviceById(id);
     }
+
+
 }
